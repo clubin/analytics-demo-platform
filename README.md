@@ -17,7 +17,7 @@ In order to run a VM locally, you will need to have the following installed:
 
 1) Install [Git](http://git-scm.com/downloads).
 
-3) Clone the `analysis-jenkins` repository:
+3) Clone the `analitics-demo-platform` repository:
 
     git clone https://github.com/mhelabs/analytics-demo-platform.git
 
