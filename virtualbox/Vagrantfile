@@ -1,0 +1,41 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.box = "analytics-demo-server"
+  config.vm.name = "analytics-demo-server"
+  config.vm.box_url = "http://developer.nrel.gov/downloads/vagrant-boxes/CentOS-6.4-x86_64-v20130731.box"
+  config.vm.hostname = "mhe.analytics.demo.com"
+
+  config.vm.network :private_network, ip: "192.168.33.10"
+
+  config.ssh.forward_agent = true
+
+  config.vm.provider :virtualbox do |vb|
+    # this setting makes it so that network access from the vagrant guest is able to
+    # resolve connections using the hosts VPN connection
+    # it means we can DNS resolve internal.vpn domains.
+    vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+    vb.customize ["modifyvm", :id, "--memory", 4096] # 4096 megabytes of memory (4 gigabytes)
+    vb.customize ["modifyvm", :id, "--cpus", "2"]
+    # increase the amount of video memory.
+    vb.customize ["modifyvm", :id, "--vram", "64"] # 64 megabytes of video memory.
+    # remove guest resolution restrictions.
+    vb.customize ["setextradata", "global", "GUI/MaxGuestResolution", "any"]
+    # set the defualt resolution.
+    vb.customize ["setextradata", :id, "CustomVideoMode1", "1024x768x32"]
+    # enable DNS
+    vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+    vb.gui = true
+  end
+
+  config.vm.provision :puppet do |puppet|
+  	puppet.manifest_file = "default.pp"
+    puppet.manifests_path = "../manifests"
+    puppet.module_path = "../modules"
+    puppet.options = ['--verbose']
+  end
+
+end

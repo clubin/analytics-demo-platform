@@ -25,12 +25,6 @@ In order to run a VM locally, you will need to have the following installed:
 
 5) Install [Virtualbox](https://www.virtualbox.org/wiki/Downloads).
 
-### Running Locally on Windows
-The linux baseboxes will need the `vagrant-windows` plugin installed in order to run properly.
-Run the following command from the `ci-server-vb` directory to install the `vagrant-windows` plugin: 
-
-	vagrant plugin install vagrant-windows
-
 ### Requirements For Running VM on AWS
 
 ### Virtual Machine Packages
@@ -38,4 +32,4 @@ This is an out of box solution for a staging and testing setup is installed with
 
 * [CentOS 6.4](http://www.centos.org/)
 * [Open JDK 1.7.0_55](http://openjdk.java.net/)
-* [Jenkins](http://jenkins-ci.org/)
+* [MongoDb 2.4](http://docs.mongodb.org/manual/release-notes/2.4/)
